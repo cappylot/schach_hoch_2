@@ -39,7 +39,14 @@ corepack pnpm install
 ### Environment
 
 - Backend: copy `server/.env.example` to `server/.env` to override the default port (defaults to `4000`).
-- Frontend: copy `client/.env.example` to `client/.env` and point `VITE_SERVER_URL` at the backend host.
+- Frontend: copy `client/.env.example` to `client/.env`, set `VITE_SERVER_URL` to the backend base URL, and optionally adjust `VITE_SERVER_PORT` (defaults to `4000`).
+
+### Local Network Play
+
+- Start the backend on the host machine and ensure the firewall allows inbound traffic on the chosen port (default `4000`).
+- Run the frontend with `pnpm dev --host` so other devices on the LAN can load it, or serve the built client from any web server.
+- On every client device, point `VITE_SERVER_URL` (or leave it unset and rely on the default) so it resolves to the backend host, e.g. `http://192.168.0.42:4000`.
+- If relying on the default URL, the client will automatically target `http(s)://<current-host>:<VITE_SERVER_PORT|4000>`, so opening the frontend from another machine while the backend runs on the same host works without extra configuration.
 
 ### Running the project
 
